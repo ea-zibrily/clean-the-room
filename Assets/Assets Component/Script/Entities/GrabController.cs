@@ -9,6 +9,7 @@ public class GrabController : MonoBehaviour
     [SerializeField] private float raycastRadius;
 
     private KeyCode grabKey;
+    private GameObject grabObject;
     private int objectLayerIndex;
     
     [Header("Reference")]
@@ -34,29 +35,33 @@ public class GrabController : MonoBehaviour
     {
         RaycastHit2D grabHitChecker = Physics2D.Raycast(raycastPoint.position, 
             Vector2.right, raycastRadius, objectLayerIndex);
-        
+
         if (grabHitChecker.collider != null && grabHitChecker.collider.CompareTag("Grabable"))
         {
-            if (Input.GetKeyDown(grabKey))
+            if (Input.GetKeyDown(grabKey) && grabObject == null)
             {
-                grabHitChecker.collider.gameObject.transform.parent = grabPoint;
-                grabHitChecker.collider.gameObject.transform.position = grabPoint.position;
-                grabHitChecker.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                playerController.PlayerGrabDirection();
+                playerController.IsGrabObject = true;
+                
+                grabObject = grabHitChecker.collider.gameObject;
+                grabObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                grabObject.transform.position = grabPoint.position;
+                grabObject.transform.SetParent(transform);
             }
-        }
-        else
-        {
-            if (Input.GetKeyDown(grabKey))
+            else if(Input.GetKeyDown(grabKey))
             {
-                grabHitChecker.collider.gameObject.transform.SetParent(null);
-                grabHitChecker.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                playerController.IsGrabObject = false;
+                
+                grabObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                grabObject.transform.SetParent(null);
+                grabObject = null;
             }
         }
     }
 
     private void PlayerOneChecker()
     {
-        if (playerController.isPlayerOne)
+        if (playerController.IsPlayerOne)
         {
             grabKey = KeyCode.F;
         }

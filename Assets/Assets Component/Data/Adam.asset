@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Adam
   m_EditorClassIdentifier: 
   playerName: Adam
-  <PlayerSpeed>k__BackingField: 6
+  <PlayerSpeed>k__BackingField: 4

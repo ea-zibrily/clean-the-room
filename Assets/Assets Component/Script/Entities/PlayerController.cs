@@ -9,17 +9,17 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(GrabController))]
-[RequireComponent(typeof(HoldController))]
 
 #endregion
-public class PlayerController : MonoBehaviour
+public class PlayerController : ObserverSubjects
 {
     #region Variable
     
     [Header("Main Component")]
     [SerializeField] private PlayerData playerDataSO;
     [SerializeField] private Vector2 playerDirection;
-    [field: SerializeField] public bool isPlayerOne {get; private set;}
+    [field: SerializeField] public bool IsPlayerOne {get; private set;}
+    public bool IsGrabObject {get; set;}
     
     [Header("Reference")]
     private Rigidbody2D myRb;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMove()
     {
         float moveX, moveY;
-        if (isPlayerOne)
+        if (IsPlayerOne)
         {
             moveX = Input.GetAxisRaw("Horizontal");
             moveY = Input.GetAxisRaw("Vertical");
@@ -74,12 +74,23 @@ public class PlayerController : MonoBehaviour
         myRb.velocity = playerDirection * playerDataSO.PlayerSpeed;
     }
 
+    public void PlayerGrabDirection() => playerDirection = Vector2.right;
+    
     private void PlayerAnimation()
     {
         if (playerDirection != Vector2.zero)
         {
-            myAnim.SetFloat("Horizontal", playerDirection.x);
-            myAnim.SetFloat("Vertical", playerDirection.y);
+            if (IsGrabObject)
+            {
+                myAnim.SetFloat("Horizontal", 1);
+                myAnim.SetFloat("Vertical", 0);
+            }
+            else
+            {
+                myAnim.SetFloat("Horizontal", playerDirection.x);
+                myAnim.SetFloat("Vertical", playerDirection.y);
+            }
+           
             myAnim.SetBool("isMoving", true);
         }
         else
