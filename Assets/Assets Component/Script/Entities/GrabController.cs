@@ -27,7 +27,7 @@ public class GrabController : MonoBehaviour
 
     private void Update()
     {
-        PlayerOneChecker();
+        PlayerKeyChecker();
         GrabObject();
     }
     
@@ -59,7 +59,7 @@ public class GrabController : MonoBehaviour
         }
     }
 
-    private void PlayerOneChecker()
+    private void PlayerKeyChecker()
     {
         if (playerController.IsPlayerOne)
         {

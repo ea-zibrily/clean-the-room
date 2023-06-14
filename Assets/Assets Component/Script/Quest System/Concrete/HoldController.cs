@@ -10,13 +10,16 @@ public class HoldController : MonoBehaviour
 
     [Header("UI Component")]
     [SerializeField] private Image fillBarUI;
-    [SerializeField] private float maxFillBar;
-    [SerializeField] private float minFillBar;
     [SerializeField] private float fillBarSpeed;
+    private float maxFillBar;
+    private float minFillBar;
+    
+    private KeyCode holdKey;
     
     [Header("Reference")]
     [SerializeField] private Animator holdPanelAnimation;
     private HoldDetector holdDetector;
+    private PlayerController playerController;
 
     #endregion
 
@@ -25,10 +28,20 @@ public class HoldController : MonoBehaviour
     private void Awake()
     {
         holdDetector = GetComponent<HoldDetector>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
+    private void Start()
+    {
+        maxFillBar = 1f;
+        minFillBar = 0f;
+        
+        fillBarUI.fillAmount = minFillBar;
     }
 
     private void Update()
     {
+        PlayerKeyChecker();
         HoldObject();
     }
 
@@ -43,19 +56,20 @@ public class HoldController : MonoBehaviour
            return;
         }
         
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(holdKey))
         {
-            IncreaseBar();
+            StartCoroutine(IncreaseBar());
         }
         else
         {
-            ResetBar();
+            StartCoroutine(ResetBar());
         }
     }
 
-    private void IncreaseBar()
+    private IEnumerator IncreaseBar()
     {
         holdPanelAnimation.SetBool("isHolding", true);
+        yield return new WaitForSeconds(0.20f);
         
         if (fillBarUI.fillAmount < maxFillBar)
         {
@@ -68,11 +82,25 @@ public class HoldController : MonoBehaviour
         }
     }
 
-    private void ResetBar()
+    private IEnumerator ResetBar()
     {
         holdPanelAnimation.SetBool("isHolding", false);
+        yield return new WaitForSeconds(0.25f);
+        
         fillBarUI.fillAmount = minFillBar;
     }
-
+    
+    private void PlayerKeyChecker()
+    {
+        if (playerController.IsPlayerOne)
+        {
+            holdKey = KeyCode.T;
+        }
+        else
+        {
+            holdKey = KeyCode.M;
+        }
+    }
+    
     #endregion
 }
