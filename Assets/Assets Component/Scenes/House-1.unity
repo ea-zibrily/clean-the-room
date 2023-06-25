@@ -1386,7 +1386,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 0
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2031,21 +2031,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2107173109277313277, guid: 64f55ae5cdc194e4ebdf78e6acfe9d4c, type: 3}
-      propertyPath: m_Size.x
-      value: 0.3451414
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107173109277313277, guid: 64f55ae5cdc194e4ebdf78e6acfe9d4c, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.008089542
-      objectReference: {fileID: 0}
     - target: {fileID: 6943748028746367494, guid: 64f55ae5cdc194e4ebdf78e6acfe9d4c, type: 3}
       propertyPath: m_Name
       value: Adam
-      objectReference: {fileID: 0}
-    - target: {fileID: 8348613269284627960, guid: 64f55ae5cdc194e4ebdf78e6acfe9d4c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.593
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2125,17 +2113,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4330786195557569755, guid: 1185150f4fe7c72429f7bbab1315e2dc, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 17462eb4eae62f14a8e12c8e1dc2e96b, type: 2}
     - target: {fileID: 8287928424891986521, guid: 1185150f4fe7c72429f7bbab1315e2dc, type: 3}
       propertyPath: m_Name
       value: Amelia
-      objectReference: {fileID: 0}
-    - target: {fileID: 8287928424891986521, guid: 1185150f4fe7c72429f7bbab1315e2dc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432734386599994476, guid: 1185150f4fe7c72429f7bbab1315e2dc, type: 3}
       propertyPath: m_RootOrder

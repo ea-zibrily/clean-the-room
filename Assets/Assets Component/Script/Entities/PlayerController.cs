@@ -7,7 +7,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(GrabController))]
 
 #endregion
@@ -32,7 +31,7 @@ public class PlayerController : ObserverSubjects
     private void Awake()
     {
         myRb = GetComponent<Rigidbody2D>();
-        myAnim = GetComponent<Animator>();
+        myAnim = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -57,16 +56,8 @@ public class PlayerController : ObserverSubjects
     private void PlayerMove()
     {
         float moveX, moveY;
-        if (IsPlayerOne)
-        {
-            moveX = Input.GetAxisRaw("Horizontal");
-            moveY = Input.GetAxisRaw("Vertical");
-        }
-        else
-        {
-            moveX = Input.GetAxisRaw("Horizontal2");
-            moveY = Input.GetAxisRaw("Vertical2");
-        }
+        moveX = IsPlayerOne ? Input.GetAxisRaw("Horizontal") : Input.GetAxisRaw("Horizontal2");
+        moveY = IsPlayerOne ? Input.GetAxisRaw("Vertical") : Input.GetAxisRaw("Vertical2");
 
         playerDirection = new Vector2(moveX, moveY);
         playerDirection.Normalize();
